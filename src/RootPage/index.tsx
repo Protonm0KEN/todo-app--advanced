@@ -5,7 +5,7 @@ const RootPage = () => {
   return (
     <>
       <Routes>
-        <Route path="/todo-app/" element = {<TodoApp/>}/>
+        <Route path="/todo-app/*" element = {<TodoApp/>}/>
       </Routes>
     </>
   )

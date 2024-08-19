@@ -1,0 +1,30 @@
+.CreateTodoForm{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px solid black;
+    background: white;
+
+    max-width: 600px;
+
+
+    &_fields{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        & input{
+            background: none;
+            border: 2px solid black;
+            padding: 10px;
+            border-radius: 20px;
+        }
+    }
+
+    &_steps{
+        
+    }
+
+}

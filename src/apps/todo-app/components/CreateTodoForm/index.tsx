@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { setTodoContent, setTodoDateOfCreation, setTodoDateOfFinishing, setTodoId, setTodoTimeOfCreation, setTodoTimeOfFinishing, setTodoTitle } from "../../redux/slices/todoSlice/todoSlice"
-
+import "./styles/styles.scss"
 const CreateTodoForm = () => {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
@@ -29,13 +29,24 @@ const CreateTodoForm = () => {
         dispatch(setTodoTimeOfFinishing(timeOfFinishing))
     }
     return (
-        <div>
-            <input onChange={(e) => setTitle(e.target.value)} value={title} type="text" placeholder="Title" />
-            <input onChange={(e) => setContent(e.target.value)} value={content} type="text" placeholder="Content" />
-            <input onChange={(e) => setDate(e.target.value)} type="date" />
-            <input onChange={(e) => setTimeOfFinishing(e.target.value)} value={timeOfFinishing} type="time" />
+        <form className="CreateTodoForm">
+            <div className="CreateTodoForm_fields">
+                <label htmlFor="todoTitle">Todo Title</label>
+                <input id="todoTitle" onChange={(e) => setTitle(e.target.value)} value={title} type="text" placeholder="Title..." />
+                <label htmlFor="todoContent">Todo Content</label>
+                <input id="todoContent" onChange={(e) => setContent(e.target.value)} value={content} type="text" placeholder="Content..." />
+                <label htmlFor="dateOfFinishing">Date Of Finishing</label>
+                <input id="dateOfFinishing" onChange={(e) => setDate(e.target.value)} type="date" />
+                <label htmlFor="timeOfFinishing">Time Of Finishing</label>
+                <input id="timeOfFinishing" onChange={(e) => setTimeOfFinishing(e.target.value)} value={timeOfFinishing} type="time" />
+            </div>
+            <div className="CreateTodoForm_steps">
+                <h1>Add New Steps</h1>
+                <input type="text"  placeholder="Step name..." />
+                <button className="steps_button">Add Step</button>
+            </div>
             <button onClick={onClickCreateNewTodo}>Set Todo</button>
-        </div>
+        </form>
     )
 }
 export default CreateTodoForm
