@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import {setTodoData} from "../../redux/slices/todoSlice/todoSlice"
+import { setTodoData } from "../../redux/slices/todoSlice/todoSlice"
 import "./styles/styles.scss"
 import { addTodoToTodos } from "../../redux/slices/todosSlice/todosSlice"
 import { todoStepI } from "../../types/todoStepTypes/todoStepStypes"
@@ -79,11 +79,11 @@ const CreateTodoForm = () => {
             </div>
             <div className="CreateTodoForm_steps">
                 <h1>Add New Steps</h1>
-                <input onChange={(e) => setStepName(e.target.value)} value={stepName}  type="text" placeholder="Step name..." />
+                <input onChange={(e) => setStepName(e.target.value)} value={stepName} type="text" placeholder="Step name..." />
                 <button onClick={onClickAddNewStep} className="steps_button">Add Step</button>
                 {steps.map((step) => {
-                    return(
-                        <p>{step.todoStepName}</p>
+                    return (
+                        <p key={step.todoStepId}>{step.todoStepName}</p>
                     )
                 })}
             </div>

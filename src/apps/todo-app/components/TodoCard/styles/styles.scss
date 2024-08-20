@@ -1,0 +1,111 @@
+.TodoCard{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    &_title{
+        text-align: center;
+        font-size: 20px;
+    }
+    &_state{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & .state{
+            &_bar{
+                width: 200px;
+                height: 15px;
+                border-radius: 20px;
+            }
+
+            &_bar.active{
+                background-color: rgb(0, 170, 255);
+            }
+            &_bar.deffered{
+                background-color: rgb(255, 230, 0);
+            }
+            &_bar.done{
+                background-color: rgb(3, 255, 112);
+            }
+
+        }
+    }
+    &_steps{
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        border: 2px solid black;
+        padding: 10px;
+        border-radius: 10px;
+        & .step{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            &_doneText{
+                color: rgb(3, 255, 112);
+            }
+            &_complete-btn{
+                background-color: rgb(3, 255, 112);
+            }
+            &_delete-btn{
+                background-color: rgb(255, 51, 0);
+            }
+            &_buttons{
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                & button{
+                    padding: 10px;
+                    border-radius: 10px;
+                    color: white;
+                }
+            }
+        }
+    }
+    &_top, &_body, &_bottom{
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    &_bottom{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &_time{
+        padding: 20px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    &_buttons{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        & button{
+            padding: 10px;
+            border-radius: 15px;
+        }
+    }
+    &_completeTodo-btn{
+        background-color: rgb(3, 255, 112);
+    }
+    &_deleteTodo-btn{
+        background-color: rgb(255, 51, 0);
+    }
+    &_editTodo-btn{
+        background-color: rgb(0, 170, 255);
+    }
+}
