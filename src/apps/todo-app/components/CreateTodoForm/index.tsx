@@ -13,6 +13,7 @@ const CreateTodoForm = () => {
     const [timeOfFinishing, setTimeOfFinishing] = useState("")
     const [steps, setSteps] = useState<todoStepI[]>([])
     const [stepName, setStepName] = useState("")
+    
     //date
     const clearCreateTodoForm = () => {
         setTitle("")
@@ -42,22 +43,33 @@ const CreateTodoForm = () => {
         const formattedFinishingDate = `${date.slice(8, 9)}.${date.slice(5, 7)}.${date.slice(0, 4)}`
 
         // Setting data of new todo
-        const newTodo = {
-            todoTitle: title,
-            todoContent: content,
-            todoId: Math.random().toString(16).slice(2),
-            todoDateOfCreation: formattedDate,
-            todoDateOfFinishing: formattedFinishingDate,
-            todoTimeOfCreation: formattedTime,
-            todoTimeOfFinishing: timeOfFinishing,
-            todoState: "Active",
-            todoSteps: steps
+        if (title.length === 0) {
+            alert("You haven't written the title of the todo")
         }
-        dispatch(setTodoData(newTodo))
-        dispatch(addTodoToTodos(newTodo))
-        clearCreateTodoForm()
+        else if (content.length === 0) {
+            alert("You haven't written the content of the todo")
+        }
+        else {
+            const newTodo = {
+                todoTitle: title,
+                todoContent: content,
+                todoId: Math.random().toString(16).slice(2),
+                todoDateOfCreation: formattedDate,
+                todoDateOfFinishing: formattedFinishingDate,
+                todoTimeOfCreation: formattedTime,
+                todoTimeOfFinishing: timeOfFinishing,
+                todoState: "Active",
+                todoSteps: steps
+            }
+            dispatch(setTodoData(newTodo))
+            dispatch(addTodoToTodos(newTodo))
+            clearCreateTodoForm()
+        }
     }
     const onClickAddNewStep = () => {
+        if (stepName.length === 0) {
+            alert("You haven't written any thing for this step")
+        }
         setSteps([...steps, {
             todoStepName: stepName,
             todoStepId: Math.random().toString(16).slice(2),

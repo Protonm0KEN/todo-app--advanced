@@ -6,6 +6,7 @@ import { FC, useState } from "react"
 const TodoCard: FC<todoI> = (todo) => {
     const [newTitle, setNewTitle] = useState(todo.todoTitle)
     const [newContent, setNewContent] = useState(todo.todoContent)
+    const [newStepName, setNewStepName] = useState("")
     const dispatch = useDispatch()
     const [isEditting, setIsEdditing] = useState(false)
     const deleteStep = (stepId: string) => {
@@ -15,7 +16,7 @@ const TodoCard: FC<todoI> = (todo) => {
         }))
     }
     const completeStep = (stepId: string) => {
-        let clonedStepsArray = structuredClone(todo.todoSteps)
+        const clonedStepsArray = structuredClone(todo.todoSteps)
         clonedStepsArray.forEach((todoStep) => {
             if (todoStep.todoStepId === stepId) {
                 todoStep.todoStepIsDone = true
@@ -32,12 +33,12 @@ const TodoCard: FC<todoI> = (todo) => {
             todoState: "Done"
         }))
     }
-    const defferTodo = () => {
-        dispatch(updateTodoInTodos({
-            ...todo,
-            todoState: "Deffered"
-        }))
-    }
+    // const defferTodo = () => {
+    //     dispatch(updateTodoInTodos({
+    //         ...todo,
+    //         todoState: "Deffered"
+    //     }))
+    // }
     const deleteTodo = () => {
         dispatch(deleteTodoFromTodos(todo.todoId))
     }
@@ -45,17 +46,32 @@ const TodoCard: FC<todoI> = (todo) => {
         setIsEdditing(!isEditting)
     }
     const onClickSaveChangesInTodo = () => {
-        dispatch(updateTodoInTodos({
-            ...todo,
-            todoTitle: newTitle,
-            todoContent: newContent
-        }))
-        setIsEdditing(!isEditting)
+        if(newTitle.length !== 0 && newContent.length !== 0){
+            dispatch(updateTodoInTodos({
+                ...todo,
+                todoTitle: newTitle,
+                todoContent: newContent
+            }))
+            setIsEdditing(!isEditting)
+        }else{
+            setIsEdditing(!isEditting)
+        }
     }
     const onClickCancelToChangeTodo = () => {
         setNewContent(todo.todoContent)
         setNewTitle(todo.todoTitle)
         setIsEdditing(!isEditting)
+    }
+    const onClickAddNewStep = () => {
+        dispatch(updateTodoInTodos({
+            ...todo,
+            todoSteps: [...todo.todoSteps, {
+                todoStepName: newStepName,
+                todoStepId: Math.random().toString(16).slice(2),
+                todoStepIsDone: false
+            }]
+        }))
+        setNewStepName("")
     }
     return (
         <div className="TodoCard">
@@ -66,7 +82,7 @@ const TodoCard: FC<todoI> = (todo) => {
                 </div>
                 {isEditting
                     ?
-                    <input onChange={(e) => setNewTitle(e.target.value)} value={newTitle} type="text" />
+                    <input className="TodoCard_editTitleInput" onChange={(e) => setNewTitle(e.target.value)} value={newTitle} type="text" />
                     :
                     <p className="TodoCard_title">{todo.todoTitle}</p>
                 }
@@ -74,17 +90,26 @@ const TodoCard: FC<todoI> = (todo) => {
             <div className="TodoCard_body">
                 {isEditting
                     ?
-                    <input onChange={(e) => setNewContent(e.target.value)} value={newContent} type="text" />
+                    <input className="TodoCard_editContentInput" onChange={(e) => setNewContent(e.target.value)} value={newContent} type="text" />
                     :
                     <p className="TodoCard_content">
                         {todo.todoContent}
                     </p>
                 }
-                {todo.todoSteps
+                {todo.todoSteps.length>0
                     ?
 
                     <ul className="TodoCard_steps">
                         Шаги:
+                        {
+                            isEditting
+                                ?
+                                <div className="TodoCard_addNewSteps">
+                                    <input className="addNewSteps_input" value={newStepName} onChange={(e) => setNewStepName(e.target.value)} placeholder="New Step Name"  type="text" />
+                                    <button className="addNewSteps_button" onClick={onClickAddNewStep}>Add New Step</button>
+                                </div>
+                                : null
+                        }
                         {todo.todoSteps.map((todoStep) => {
                             return (
                                 <li key={todoStep.todoStepId} className="step">
@@ -117,9 +142,9 @@ const TodoCard: FC<todoI> = (todo) => {
                 <div className="TodoCard_buttons">
                     {isEditting
                         ?
-                        <div className="">
-                            <button onClick={onClickSaveChangesInTodo}>Сохранить изменения</button>
-                            <button onClick={onClickCancelToChangeTodo}>Отменить изменения</button>
+                        <div className="changesButtons">
+                            <button className="TodoCard_saveChangesButton" onClick={onClickSaveChangesInTodo}>Сохранить изменения</button>
+                            <button className="TodoCard_cancelChangesButton" onClick={onClickCancelToChangeTodo}>Отменить изменения</button>
                         </div>
                         :
                         <>

@@ -98,6 +98,11 @@
             padding: 10px;
             border-radius: 15px;
         }
+        & .changesButtons{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
     }
     &_completeTodo-btn{
         background-color: rgb(3, 255, 112);
@@ -107,5 +112,43 @@
     }
     &_editTodo-btn{
         background-color: rgb(0, 170, 255);
+    }
+    &_addNewSteps{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        & .addNewSteps{
+            &_input{
+                border-radius: 15px;
+                padding: 10px;
+                color: black;
+                text-align: center;
+            }
+            &_button{
+                background: rgb(3, 255, 112);
+                border-radius: 15px;
+                padding: 10px;
+            }
+        }
+    }
+    &_editTitleInput, &_editContentInput{
+        padding: 10px;
+        color: black;
+        text-align: start;
+    }
+    &_saveChangesButton, &_cancelChangesButton{
+        text-align: center;
+        transition: 0.3s;
+        background: none;
+    }
+    &_saveChangesButton:hover{
+        background-color: rgb(3, 255, 112);
+        color: white;
+        transform: scale(110%);
+    }
+    &_cancelChangesButton:hover{
+        background-color: rgb(255, 51, 0);
+        color: white;
+        transform: scale(110%);
     }
 }
