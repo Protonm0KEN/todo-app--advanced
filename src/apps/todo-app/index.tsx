@@ -1,10 +1,10 @@
 import { useState } from "react"
 import "./styles/styles.scss"
 import { Link, Route, Routes } from "react-router-dom"
-import CreateTodoForm from "./components/CreateTodoForm"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import TodoCard from "./components/TodoCard"
+import CreateTodoForm from "./components/CreateTodoForm"
 const TodoApp = () => {
   const [isCreateTodoFormOpen, setIsCreateTodoFormOpen] = useState(false)
   const todos = useSelector((state: RootState) => state.todoAppReducers.todos)
