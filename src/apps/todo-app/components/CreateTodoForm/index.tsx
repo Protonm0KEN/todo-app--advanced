@@ -1,19 +1,20 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setTodoData } from "../../redux/slices/todoSlice/todoSlice"
 import "./styles/styles.scss"
 import { addTodoToTodos } from "../../redux/slices/todosSlice/todosSlice"
 import { todoStepI } from "../../types/todoStepTypes/todoStepStypes"
+import { RootState } from "../../../../redux/store"
 const CreateTodoForm = () => {
     const dispatch = useDispatch()
-
+    const todoGroups = useSelector((state: RootState) => state.todoAppReducers.todoGroups)
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [date, setDate] = useState("")
     const [timeOfFinishing, setTimeOfFinishing] = useState("")
     const [steps, setSteps] = useState<todoStepI[]>([])
     const [stepName, setStepName] = useState("")
-    
+    const [todoGroupName, setTodoGroupName] = useState(todoGroups[0].todoGroupName)
     //date
     const clearCreateTodoForm = () => {
         setTitle("")
@@ -30,7 +31,8 @@ const CreateTodoForm = () => {
             todoTimeOfCreation: "",
             todoTimeOfFinishing: "",
             todoState: "",
-            todoSteps: []
+            todoSteps: [],
+            todoGroupName: ""
         }))
     }
     const onClickCreateNewTodo = () => {
@@ -59,7 +61,8 @@ const CreateTodoForm = () => {
                 todoTimeOfCreation: formattedTime,
                 todoTimeOfFinishing: timeOfFinishing,
                 todoState: "Active",
-                todoSteps: steps
+                todoSteps: steps,
+                todoGroupName
             }
             dispatch(setTodoData(newTodo))
             dispatch(addTodoToTodos(newTodo))
@@ -99,6 +102,19 @@ const CreateTodoForm = () => {
                     )
                 })}
             </div>
+            {
+                todoGroups.length > 0
+                    ? <div className="CreateTodoForm_todoGroup">
+                        <h1>Select todo group</h1>
+                        <select onChange={(e) => setTodoGroupName(e.target.value)} name="selectTodoGroup" id="selectTodoGroup">
+                            {todoGroups.map((todoGroup) => {
+                                return (
+                                    <option key={todoGroup.todoGroupId} value={todoGroup.todoGroupName}>{todoGroup.todoGroupName}</option>
+                                )
+                            })}
+                        </select>
+                    </div> : null
+            }
             <button onClick={onClickCreateNewTodo}>Create Todo</button>
         </form>
     )

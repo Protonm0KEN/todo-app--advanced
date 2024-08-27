@@ -12,6 +12,8 @@ const initialState: todoI = {
     todoDateOfFinishing: "",
     todoTimeOfCreation: "",
     todoTimeOfFinishing: "",
+
+    todoGroupName: ""
 }
 
 const todoSlice = createSlice({
@@ -28,6 +30,7 @@ const todoSlice = createSlice({
             state.todoSteps = action.payload.todoSteps
             state.todoTimeOfCreation = action.payload.todoTimeOfCreation
             state.todoTimeOfFinishing = action.payload.todoTimeOfFinishing
+            state.todoGroupName = action.payload.todoGroupName
         }
     }
 })
