@@ -10,7 +10,7 @@ const todoGroupsSlice = createSlice({
         addTodoGroupToTodoGroups: (state, action: PayloadAction<todoGroupI>) => {
             state.push(action.payload)
         },
-        deleteTodoGroupFromTodoGroups: (state, action: PayloadAction<{todoGroupId: string}>) => {
+        deleteTodoGroupFromTodoGroups: (state, action: PayloadAction<{ todoGroupId: string }>) => {
             return state.filter((todoGroup) => todoGroup.todoGroupId !== action.payload.todoGroupId)
         },
         updateTodoGroupInTodoGroups: (state, action: PayloadAction<todoGroupI>) => {
@@ -19,8 +19,22 @@ const todoGroupsSlice = createSlice({
                 const indexOfTodoGroupToChange = state.indexOf(todoGroupToChange)
                 state[indexOfTodoGroupToChange] = action.payload
             }
+        },
+        showCertainTodoGroup: (state, action: PayloadAction<todoGroupI>) => {
+            state.forEach((todoGroup) => {
+                if (todoGroup.todoGroupId === action.payload.todoGroupId) {
+                    todoGroup.todoGroupIsShown = true
+                } else {
+                    todoGroup.todoGroupIsShown = false
+                }
+            })
         }
     }
 })
-export const {addTodoGroupToTodoGroups, deleteTodoGroupFromTodoGroups, updateTodoGroupInTodoGroups} = todoGroupsSlice.actions
+export const {
+    addTodoGroupToTodoGroups,
+    deleteTodoGroupFromTodoGroups,
+    updateTodoGroupInTodoGroups,
+    showCertainTodoGroup
+} = todoGroupsSlice.actions
 export default todoGroupsSlice.reducer

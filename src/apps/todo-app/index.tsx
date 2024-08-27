@@ -5,12 +5,14 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import TodoCard from "./components/TodoCard"
 import CreateTodoForm from "./components/CreateTodoForm"
+import TodoGroupsBar from "./components/TodoGroupsBar"
 const TodoApp = () => {
   const [isCreateTodoFormOpen, setIsCreateTodoFormOpen] = useState(false)
   const todos = useSelector((state: RootState) => state.todoAppReducers.todos)
   return (
     <>
       <div className="TodoApp">
+        <TodoGroupsBar />
         <button onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)}>
           <Link to={isCreateTodoFormOpen ? "" : "create-todo-form"}>Открыть</Link>
         </button>
