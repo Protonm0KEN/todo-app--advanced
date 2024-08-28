@@ -5,6 +5,8 @@ import "./styles/styles.scss"
 import { addTodoToTodos } from "../../redux/slices/todosSlice/todosSlice"
 import { todoStepI } from "../../types/todoStepTypes/todoStepStypes"
 import { RootState } from "../../../../redux/store"
+import { updateTodoGroupInTodoGroups } from "../../redux/slices/todoGroupsSlice/todoGroupsSlice"
+import { Link } from "react-router-dom"
 const CreateTodoForm = () => {
     const dispatch = useDispatch()
     const todoGroups = useSelector((state: RootState) => state.todoAppReducers.todoGroups)
@@ -64,8 +66,17 @@ const CreateTodoForm = () => {
                 todoSteps: steps,
                 todoGroupName
             }
+            const todoGroup = todoGroups.find((todoGroup) => todoGroup.todoGroupName === newTodo.todoGroupName)
             dispatch(setTodoData(newTodo))
             dispatch(addTodoToTodos(newTodo))
+            if (todoGroup) {
+                dispatch(updateTodoGroupInTodoGroups({
+                    todoGroupName,
+                    todoGroupId: todoGroup?.todoGroupId,
+                    todoGroupIsShown: false,
+                    todoGroupTodos: [...todoGroup.todoGroupTodos, newTodo]
+                }))
+            }
             clearCreateTodoForm()
         }
     }
@@ -115,7 +126,7 @@ const CreateTodoForm = () => {
                         </select>
                     </div> : null
             }
-            <button onClick={onClickCreateNewTodo}>Create Todo</button>
+            <Link to = "/todo-app/" onClick={onClickCreateNewTodo}>Create Todo</Link>
         </form>
     )
 }

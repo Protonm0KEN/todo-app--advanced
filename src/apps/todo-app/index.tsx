@@ -9,6 +9,7 @@ import TodoGroupsBar from "./components/TodoGroupsBar"
 const TodoApp = () => {
   const [isCreateTodoFormOpen, setIsCreateTodoFormOpen] = useState(false)
   const todos = useSelector((state: RootState) => state.todoAppReducers.todos)
+  const todoGroups = useSelector((state: RootState) => state.todoAppReducers.todoGroups)
   return (
     <>
       <div className="TodoApp">
@@ -16,13 +17,27 @@ const TodoApp = () => {
         <button onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)}>
           <Link to={isCreateTodoFormOpen ? "" : "create-todo-form"}>Открыть</Link>
         </button>
-        Задачи:
-        {todos.map((todo) => {
-          return (
-            <TodoCard key={todo.todoId} {...todo} />
-          )
-        })}
         <Routes>
+          {todoGroups.map((todoGroup) => {
+            if (todoGroup.todoGroupIsShown === true) {
+              return <Route key={todoGroup.todoGroupId} path={todoGroup.todoGroupName} element={
+                <>
+                  {todoGroup.todoGroupTodos.map((todo) => {
+                    return (<TodoCard key={todo.todoId} {...todo} />)
+                  })}
+                </>
+              } />
+            }
+          })}
+          <Route path={""} element=
+            {
+              <>
+                {todos.map((todo) => {
+                  return <TodoCard key={todo.todoId} {...todo} />
+                })}
+              </>
+
+            } />
           <Route path="create-todo-form" element={<CreateTodoForm />} />
         </Routes>
       </div>

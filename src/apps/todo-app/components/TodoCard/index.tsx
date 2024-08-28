@@ -1,19 +1,37 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { deleteTodoFromTodos, updateTodoInTodos } from "../../redux/slices/todosSlice/todosSlice"
 import { todoI } from "../../types/todoTypes/todoTypes"
 import "./styles/styles.scss"
 import { FC, useState } from "react"
+import { RootState } from "../../../../redux/store"
+import { updateTodoGroupInTodoGroups } from "../../redux/slices/todoGroupsSlice/todoGroupsSlice"
 const TodoCard: FC<todoI> = (todo) => {
     const [newTitle, setNewTitle] = useState(todo.todoTitle)
     const [newContent, setNewContent] = useState(todo.todoContent)
     const [newStepName, setNewStepName] = useState("")
     const dispatch = useDispatch()
     const [isEditting, setIsEdditing] = useState(false)
+
+    const todoGroups = useSelector((state: RootState) => state.todoAppReducers.todoGroups)
+    const thisTodoGroup = todoGroups.find((todoGroup) => todoGroup.todoGroupName === todo.todoGroupName)
+
     const deleteStep = (stepId: string) => {
         dispatch(updateTodoInTodos({
             ...todo,
             todoSteps: todo.todoSteps.filter((todoStep) => todoStep.todoStepId !== stepId)
         }))
+        if (todo.todoGroupName && thisTodoGroup) {
+            const thisTodoGroupTodos = structuredClone(thisTodoGroup.todoGroupTodos)
+            thisTodoGroupTodos.forEach((thisTodo) => {
+                if (thisTodo.todoId === todo.todoId) {
+                    thisTodo.todoSteps = todo.todoSteps.filter((todoStep) => todoStep.todoStepId !== stepId)
+                }
+            })
+            dispatch(updateTodoGroupInTodoGroups({
+                ...thisTodoGroup,
+                todoGroupTodos: thisTodoGroupTodos
+            }))
+        }
     }
     const completeStep = (stepId: string) => {
         const clonedStepsArray = structuredClone(todo.todoSteps)
@@ -26,36 +44,75 @@ const TodoCard: FC<todoI> = (todo) => {
             ...todo,
             todoSteps: clonedStepsArray
         }))
+        if (todo.todoGroupName && thisTodoGroup) {
+            const thisTodoGroupTodos = structuredClone(thisTodoGroup.todoGroupTodos)
+            thisTodoGroupTodos.forEach((thisTodo) => {
+                if (thisTodo.todoId === todo.todoId) {
+                    thisTodo.todoSteps = clonedStepsArray
+                }
+            })
+            dispatch(updateTodoGroupInTodoGroups({
+                ...thisTodoGroup,
+                todoGroupTodos: thisTodoGroupTodos
+            }))
+        }
     }
     const completeTodo = () => {
         dispatch(updateTodoInTodos({
             ...todo,
             todoState: "Done"
         }))
+        if (todo.todoGroupName && thisTodoGroup) {
+            const thisTodoGroupTodos = structuredClone(thisTodoGroup.todoGroupTodos)
+            thisTodoGroupTodos.forEach((thisTodo) => {
+                if (thisTodo.todoId === todo.todoId) {
+                    thisTodo.todoState = "Done"
+                }
+            })
+            dispatch(updateTodoGroupInTodoGroups({
+                ...thisTodoGroup,
+                todoGroupTodos: thisTodoGroupTodos
+            }))
+        }
     }
-    // const defferTodo = () => {
-    //     dispatch(updateTodoInTodos({
-    //         ...todo,
-    //         todoState: "Deffered"
-    //     }))
-    // }
     const deleteTodo = () => {
         dispatch(deleteTodoFromTodos(todo.todoId))
+        if (todo.todoGroupName && thisTodoGroup) {
+            const thisTodoGroupTodos = structuredClone(thisTodoGroup.todoGroupTodos)
+            dispatch(updateTodoGroupInTodoGroups({
+                ...thisTodoGroup,
+                todoGroupTodos: thisTodoGroupTodos.filter((thisTodo) => thisTodo.todoId !== todo.todoId)
+            }))
+        }
     }
     const onClickSetIsEdditing = () => {
         setIsEdditing(!isEditting)
     }
     const onClickSaveChangesInTodo = () => {
-        if(newTitle.length !== 0 && newContent.length !== 0){
+        if (newTitle.length !== 0 && newContent.length !== 0) {
             dispatch(updateTodoInTodos({
                 ...todo,
                 todoTitle: newTitle,
                 todoContent: newContent
             }))
+            if (todo.todoGroupName && thisTodoGroup) {
+                const thisTodoGroupTodos = structuredClone(thisTodoGroup.todoGroupTodos)
+                thisTodoGroupTodos.forEach((thisTodo) => {
+                    if (thisTodo.todoId === todo.todoId) {
+                        thisTodo.todoTitle = newTitle
+                        thisTodo.todoContent = newContent
+                    }
+                })
+                dispatch(updateTodoGroupInTodoGroups({
+                    ...thisTodoGroup,
+                    todoGroupTodos: thisTodoGroupTodos
+                }))
+            }
             setIsEdditing(!isEditting)
-        }else{
+        } else {
             setIsEdditing(!isEditting)
         }
+
     }
     const onClickCancelToChangeTodo = () => {
         setNewContent(todo.todoContent)
@@ -71,6 +128,23 @@ const TodoCard: FC<todoI> = (todo) => {
                 todoStepIsDone: false
             }]
         }))
+        if (todo.todoGroupName && thisTodoGroup) {
+            const thisTodoGroupTodos = structuredClone(thisTodoGroup.todoGroupTodos)
+            thisTodoGroupTodos.forEach((thisTodo) => {
+                if (thisTodo.todoId === todo.todoId) {
+                    thisTodo.todoSteps = [...todo.todoSteps, {
+                        todoStepName: newStepName,
+                        todoStepId: Math.random().toString(16).slice(2),
+                        todoStepIsDone: false
+                    }]
+                }
+            })
+            dispatch(updateTodoGroupInTodoGroups({
+                ...thisTodoGroup,
+                todoGroupTodos: thisTodoGroupTodos
+            }))
+        }
+
         setNewStepName("")
     }
     return (
@@ -96,7 +170,7 @@ const TodoCard: FC<todoI> = (todo) => {
                         {todo.todoContent}
                     </p>
                 }
-                {todo.todoSteps.length>0
+                {todo.todoSteps.length > 0
                     ?
 
                     <ul className="TodoCard_steps">
@@ -105,7 +179,7 @@ const TodoCard: FC<todoI> = (todo) => {
                             isEditting
                                 ?
                                 <div className="TodoCard_addNewSteps">
-                                    <input className="addNewSteps_input" value={newStepName} onChange={(e) => setNewStepName(e.target.value)} placeholder="New Step Name"  type="text" />
+                                    <input className="addNewSteps_input" value={newStepName} onChange={(e) => setNewStepName(e.target.value)} placeholder="New Step Name" type="text" />
                                     <button className="addNewSteps_button" onClick={onClickAddNewStep}>Add New Step</button>
                                 </div>
                                 : null
@@ -128,6 +202,7 @@ const TodoCard: FC<todoI> = (todo) => {
                     : null
                 }
             </div>
+            <p>Группа: {todo.todoGroupName}</p>
             <div className="TodoCard_bottom">
                 <div className="TodoCard_time">
                     <div className="TodoCard_dates">

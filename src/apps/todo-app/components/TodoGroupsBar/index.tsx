@@ -37,6 +37,7 @@ const TodoGroupsBar = () => {
     return (
         <div className='TodoGroupsBar'>
             <nav className='TodoGroupsBar_nav'>
+                <Link className="nav_link" to={""}>All Todos</Link>
                 {todoGroups.map((todoGroup) => {
                     return (
                         <Link onClick={() => onClickShowTodoGroup(todoGroup)} className="nav_link" key={todoGroup.todoGroupId} to={todoGroup.todoGroupName}>{todoGroup.todoGroupName}</Link>
