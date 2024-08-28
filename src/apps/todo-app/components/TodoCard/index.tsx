@@ -94,7 +94,7 @@ const TodoCard: FC<todoI> = (todo) => {
             dispatch(updateTodoInTodos({
                 ...todo,
                 todoTitle: newTitle,
-                todoContent: newContent
+                todoContent: newContent,
             }))
             if (todo.todoGroupName && thisTodoGroup) {
                 const thisTodoGroupTodos = structuredClone(thisTodoGroup.todoGroupTodos)
@@ -108,6 +108,41 @@ const TodoCard: FC<todoI> = (todo) => {
                     ...thisTodoGroup,
                     todoGroupTodos: thisTodoGroupTodos
                 }))
+            }
+            if (todo.todoGroupName.length === 0) {
+                const thisTodoGroup = todoGroups.find((todoGroup) => todoGroup.todoGroupName === newTodoGroupName)
+                dispatch(updateTodoInTodos({
+                    ...todo,
+                    todoGroupName: newTodoGroupName
+                }))
+                if (thisTodoGroup) {
+                    dispatch(updateTodoGroupInTodoGroups({
+                        ...thisTodoGroup,
+                        todoGroupTodos: [...thisTodoGroup.todoGroupTodos, todo]
+                    }))
+                }
+            }
+            if (todo.todoGroupName !== newTodoGroupName && thisTodoGroup) {
+                const thisTodoGroupTodos = structuredClone(thisTodoGroup.todoGroupTodos).filter((thisTodo) => thisTodo.todoId !== todo.todoId)
+                dispatch(updateTodoInTodos({
+                    ...todo,
+                    todoGroupName: newTodoGroupName
+                }))
+                dispatch(updateTodoGroupInTodoGroups({
+                    ...thisTodoGroup,
+                    todoGroupTodos: thisTodoGroupTodos
+                }))
+                const newTodoGroupToSetThisTodo = todoGroups.find((todoGroup) => todoGroup.todoGroupName === newTodoGroupName)
+                if (newTodoGroupToSetThisTodo) {
+                    const newTodo = {
+                        ...todo,
+                        todoGroupName: newTodoGroupName
+                    }
+                    dispatch(updateTodoGroupInTodoGroups({
+                        ...newTodoGroupToSetThisTodo,
+                        todoGroupTodos: [...newTodoGroupToSetThisTodo.todoGroupTodos, newTodo]
+                    }))
+                }
             }
             setIsEdditing(!isEditting)
         } else {
@@ -208,7 +243,7 @@ const TodoCard: FC<todoI> = (todo) => {
                 {isEditting &&
                     <select onChange={(e) => setNewTodoGroupName(e.target.value)} name="todoCard_newTodoGroup" id="todoCard_newTodoGroup">
                         {todoGroups.map((todoGroup) => {
-                            return <option value={todoGroup.todoGroupName}>{todoGroup.todoGroupName}</option>
+                            return <option key={todoGroup.todoGroupId} value={todoGroup.todoGroupName}>{todoGroup.todoGroupName}</option>
                         })}
                     </select>
                 }

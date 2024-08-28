@@ -16,7 +16,7 @@ const CreateTodoForm = ({ isCreateTodoFormOpen, setIsCreateTodoFormOpen }) => {
     const [timeOfFinishing, setTimeOfFinishing] = useState("")
     const [steps, setSteps] = useState<todoStepI[]>([])
     const [stepName, setStepName] = useState("")
-    const [todoGroupName, setTodoGroupName] = useState("")
+    const [todoGroupName, setTodoGroupName] = useState(todoGroups[0].todoGroupName)
     //date
     const clearCreateTodoForm = () => {
         setTitle("")
@@ -127,6 +127,7 @@ const CreateTodoForm = ({ isCreateTodoFormOpen, setIsCreateTodoFormOpen }) => {
                                     )
                                 })}
                             </select>
+                            <button onClick={() => setTodoGroupName("")} className="noGroupSelectButton">Select no group and add todo to common list of all todos</button>
                         </div> : null
                 }
                 <Link className="CreateTodoForm_createTodoButton" to="/todo-app/" onClick={onClickCreateNewTodo}>Create Todo</Link>
