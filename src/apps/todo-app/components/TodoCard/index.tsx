@@ -9,6 +9,7 @@ const TodoCard: FC<todoI> = (todo) => {
     const [newTitle, setNewTitle] = useState(todo.todoTitle)
     const [newContent, setNewContent] = useState(todo.todoContent)
     const [newStepName, setNewStepName] = useState("")
+    const [newTodoGroupName, setNewTodoGroupName] = useState(todo.todoGroupName)
     const dispatch = useDispatch()
     const [isEditting, setIsEdditing] = useState(false)
 
@@ -202,7 +203,16 @@ const TodoCard: FC<todoI> = (todo) => {
                     : null
                 }
             </div>
-            <p>Группа: {todo.todoGroupName}</p>
+            {newTodoGroupName.length > 0 && <p>Группа: {todo.todoGroupName}</p>}
+            <div className="TodoCard_newTodoGroup">
+                {isEditting &&
+                    <select onChange={(e) => setNewTodoGroupName(e.target.value)} name="todoCard_newTodoGroup" id="todoCard_newTodoGroup">
+                        {todoGroups.map((todoGroup) => {
+                            return <option value={todoGroup.todoGroupName}>{todoGroup.todoGroupName}</option>
+                        })}
+                    </select>
+                }
+            </div>
             <div className="TodoCard_bottom">
                 <div className="TodoCard_time">
                     <div className="TodoCard_dates">

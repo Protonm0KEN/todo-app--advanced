@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 import { todoGroupI } from "../../types/todoGroupTypes/todoGroupTypes"
 import { setTodoGroupData } from "../../redux/slices/todoGroupSlice/todoGroupSlice"
-import { addTodoGroupToTodoGroups, showCertainTodoGroup } from "../../redux/slices/todoGroupsSlice/todoGroupsSlice"
+import { addTodoGroupToTodoGroups, deleteTodoGroupFromTodoGroups, showCertainTodoGroup } from "../../redux/slices/todoGroupsSlice/todoGroupsSlice"
 import "./styles/styles.scss"
 const TodoGroupsBar = () => {
     const dispatch = useDispatch()
@@ -34,13 +34,24 @@ const TodoGroupsBar = () => {
     const onClickShowTodoGroup = (todoGroup: todoGroupI) => {
         dispatch(showCertainTodoGroup(todoGroup))
     }
+    const onClickDeleteTodoGroup = (todoGroup: todoGroupI) => {
+        const questioning = prompt(`Напишите название  "${todoGroup.todoGroupName}" (без кавычек) что бы удалить (Задачи из группы не будут удалены и остануться в общем списке задач)`)
+        if (questioning === todoGroup.todoGroupName) {
+            dispatch(deleteTodoGroupFromTodoGroups({ todoGroupId: todoGroup.todoGroupId }))
+        } else {
+            alert("Вы неправильно написали название группы. Попробуйте снова")
+        }
+    }
     return (
         <div className='TodoGroupsBar'>
             <nav className='TodoGroupsBar_nav'>
                 <Link className="nav_link" to={""}>All Todos</Link>
                 {todoGroups.map((todoGroup) => {
                     return (
-                        <Link onClick={() => onClickShowTodoGroup(todoGroup)} className="nav_link" key={todoGroup.todoGroupId} to={todoGroup.todoGroupName}>{todoGroup.todoGroupName}</Link>
+                        <Link onClick={() => onClickShowTodoGroup(todoGroup)} className="nav_link" key={todoGroup.todoGroupId} to={todoGroup.todoGroupName}>
+                            {todoGroup.todoGroupName}
+                            <button className="TodoGroupsBar_deleteTodoGroupBtn" onClick={() => onClickDeleteTodoGroup(todoGroup)}>X</button>
+                        </Link>
                     )
                 })}
             </nav>

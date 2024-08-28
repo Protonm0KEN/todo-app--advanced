@@ -1,30 +1,102 @@
-.CreateTodoForm{
+.CreateTodoForm {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
+
     padding: 20px;
     border-radius: 20px;
     border: 2px solid black;
     background: white;
-
+    width: 100%;
     max-width: 600px;
+    height: fit-content;
 
+    &_layout {
+        position: fixed;
+        width: 100%;
+        background: rgb(0, 0, 0, 0.35);
+        left: 0;
+        position: fixed;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        align-items: center;
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+        transition: 0.5s;
 
-    &_fields{
+        &.active {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+    }
+
+    &_fields {
         display: flex;
         flex-direction: column;
         gap: 15px;
-        & input{
+
+        & input {
             background: none;
             border: 2px solid black;
             padding: 10px;
             border-radius: 20px;
         }
     }
-    &_todoGroup{
+
+    &_todoGroup {
         display: flex;
         flex-direction: column;
         gap: 15px;
+    }
+
+    &_createTodoButton {
+        width: 100%;
+        border: 2px solid black;
+        padding: 5px;
+        text-align: center;
+        color: black;
+        transition: 0.3s;
+        border-radius: 10px;
+
+        &:hover {
+            color: white;
+            background: black;
+            transform: scale(105%);
+        }
+    }
+
+    &_steps {
+        & h1 {
+            text-align: center;
+        }
+
+        & input {
+            border-radius: 15px;
+            padding: 10px;
+        }
+
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+
+        & .steps {
+            &_button {
+                background-color: white;
+                border-radius: 2px solid black;
+                padding: 15px;
+                border-radius: 10px;
+                text-align: center;
+                transition: 0.3s;
+                color: black;
+
+                &:hover {
+                    background-color: rgb(3, 255, 112);
+                    color: white;
+                    transform: scale(110%);
+                }
+            }
+        }
     }
 }

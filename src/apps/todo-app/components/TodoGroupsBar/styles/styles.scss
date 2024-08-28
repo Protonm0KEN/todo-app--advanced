@@ -4,15 +4,19 @@
 
     &_nav {
         display: flex;
-
+        width: 100%;
         & .nav_link {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
             border: 2px solid black;
             text-decoration: none;
             color: black;
             background: white;
             padding: 10px;
             transition: 0.3s;
+            width: 100%;
             &:hover {
                 background-color: black;
                 color: white;
@@ -30,6 +34,19 @@
         &:hover {
             background-color: black;
             color: white;
+        }
+    }
+    &_deleteTodoGroupBtn{
+        padding: 10px;
+        border: 2px solid black;
+        background: white;
+        border-radius: 25%;
+        transition: 0.3s;
+        color: black;
+        &:hover{
+            background: red;
+            color: white;
+            transform: scale(120%);
         }
     }
 }

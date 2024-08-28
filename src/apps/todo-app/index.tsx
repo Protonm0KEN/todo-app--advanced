@@ -14,8 +14,8 @@ const TodoApp = () => {
     <>
       <div className="TodoApp">
         <TodoGroupsBar />
-        <button onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)}>
-          <Link to={isCreateTodoFormOpen ? "" : "create-todo-form"}>Открыть</Link>
+        <button className="TodoApp_createTodoBtn" onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)}>
+          <Link to={isCreateTodoFormOpen ? "" : "create-todo-form"}>Создать новую задачу + </Link>
         </button>
         <Routes>
           {todoGroups.map((todoGroup) => {
@@ -38,8 +38,8 @@ const TodoApp = () => {
               </>
 
             } />
-          <Route path="create-todo-form" element={<CreateTodoForm />} />
         </Routes>
+        <CreateTodoForm isCreateTodoFormOpen={isCreateTodoFormOpen} />
       </div>
     </>
   )
