@@ -7,7 +7,7 @@ import { todoStepI } from "../../types/todoStepTypes/todoStepStypes"
 import { RootState } from "../../../../redux/store"
 import { updateTodoGroupInTodoGroups } from "../../redux/slices/todoGroupsSlice/todoGroupsSlice"
 import { Link } from "react-router-dom"
-const CreateTodoForm = ({ isCreateTodoFormOpen }: {isCreateTodoFormOpen: boolean}) => {
+const CreateTodoForm = ({ isCreateTodoFormOpen, setIsCreateTodoFormOpen }) => {
     const dispatch = useDispatch()
     const todoGroups = useSelector((state: RootState) => state.todoAppReducers.todoGroups)
     const [title, setTitle] = useState("")
@@ -16,7 +16,7 @@ const CreateTodoForm = ({ isCreateTodoFormOpen }: {isCreateTodoFormOpen: boolean
     const [timeOfFinishing, setTimeOfFinishing] = useState("")
     const [steps, setSteps] = useState<todoStepI[]>([])
     const [stepName, setStepName] = useState("")
-    const [todoGroupName, setTodoGroupName] = useState(todoGroups[0].todoGroupName)
+    const [todoGroupName, setTodoGroupName] = useState("")
     //date
     const clearCreateTodoForm = () => {
         setTitle("")
@@ -78,6 +78,7 @@ const CreateTodoForm = ({ isCreateTodoFormOpen }: {isCreateTodoFormOpen: boolean
                 }))
             }
             clearCreateTodoForm()
+            setIsCreateTodoFormOpen(!isCreateTodoFormOpen)
         }
     }
     const onClickAddNewStep = () => {

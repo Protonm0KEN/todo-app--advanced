@@ -39,7 +39,7 @@ const TodoApp = () => {
 
             } />
         </Routes>
-        <CreateTodoForm isCreateTodoFormOpen={isCreateTodoFormOpen} />
+        <CreateTodoForm isCreateTodoFormOpen={isCreateTodoFormOpen} setIsCreateTodoFormOpen={setIsCreateTodoFormOpen} />
       </div>
     </>
   )
