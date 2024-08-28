@@ -3,9 +3,9 @@ import "./styles/styles.scss"
 import { Link, Route, Routes } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
-import TodoCard from "./components/TodoCard"
 import CreateTodoForm from "./components/CreateTodoForm"
 import TodoGroupsBar from "./components/TodoGroupsBar"
+import Todos from "./components/Todos"
 const TodoApp = () => {
   const [isCreateTodoFormOpen, setIsCreateTodoFormOpen] = useState(false)
   const todos = useSelector((state: RootState) => state.todoAppReducers.todos)
@@ -17,28 +17,22 @@ const TodoApp = () => {
         <button className="TodoApp_createTodoBtn" onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)}>
           <Link to={isCreateTodoFormOpen ? "" : "create-todo-form"}>Создать новую задачу + </Link>
         </button>
-        <Routes>
-          {todoGroups.map((todoGroup) => {
-            if (todoGroup.todoGroupIsShown === true) {
-              return <Route key={todoGroup.todoGroupId} path={todoGroup.todoGroupName} element={
+        <div className="TodoApp_body">
+          <Routes>
+            {todoGroups.map((todoGroup) => {
+              if (todoGroup.todoGroupIsShown === true) {
+                return <Route key={todoGroup.todoGroupId} path={todoGroup.todoGroupName} element={<Todos todos={todoGroup.todoGroupTodos} />} />
+              }
+            })}
+            <Route path={""} element=
+              {
                 <>
-                  {todoGroup.todoGroupTodos.map((todo) => {
-                    return (<TodoCard key={todo.todoId} {...todo} />)
-                  })}
+                  <Todos todos={todos} />
                 </>
-              } />
-            }
-          })}
-          <Route path={""} element=
-            {
-              <>
-                {todos.map((todo) => {
-                  return <TodoCard key={todo.todoId} {...todo} />
-                })}
-              </>
 
-            } />
-        </Routes>
+              } />
+          </Routes>
+        </div>
         <CreateTodoForm isCreateTodoFormOpen={isCreateTodoFormOpen} setIsCreateTodoFormOpen={setIsCreateTodoFormOpen} />
       </div>
     </>

@@ -1,4 +1,4 @@
-.TodoCard{
+.TodoCard {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -7,34 +7,43 @@
     border-radius: 20px;
     max-width: 500px;
     width: 100%;
-    &_title{
+    -webkit-box-shadow: 18px 9px 11px 8px rgba(34, 60, 80, 1);
+    -moz-box-shadow: 18px 9px 11px 8px rgba(34, 60, 80, 1);
+    box-shadow: 18px 9px 11px 8px rgba(34, 60, 80, 1);
+
+    &_title {
         text-align: center;
         font-size: 20px;
     }
-    &_state{
+
+    &_state {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        & .state{
-            &_bar{
+
+        & .state {
+            &_bar {
                 width: 200px;
                 height: 15px;
                 border-radius: 20px;
             }
 
-            &_bar.active{
+            &_bar.active {
                 background-color: rgb(0, 170, 255);
             }
-            &_bar.deffered{
+
+            &_bar.deffered {
                 background-color: rgb(255, 230, 0);
             }
-            &_bar.done{
+
+            &_bar.done {
                 background-color: rgb(3, 255, 112);
             }
 
         }
     }
-    &_steps{
+
+    &_steps {
         list-style: none;
         display: flex;
         flex-direction: column;
@@ -43,24 +52,30 @@
         border: 2px solid black;
         padding: 10px;
         border-radius: 10px;
-        & .step{
+
+        & .step {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            &_doneText{
+
+            &_doneText {
                 color: rgb(3, 255, 112);
             }
-            &_complete-btn{
+
+            &_complete-btn {
                 background-color: rgb(3, 255, 112);
             }
-            &_delete-btn{
+
+            &_delete-btn {
                 background-color: rgb(255, 51, 0);
             }
-            &_buttons{
+
+            &_buttons {
                 display: flex;
                 gap: 10px;
                 align-items: center;
-                & button{
+
+                & button {
                     padding: 10px;
                     border-radius: 10px;
                     color: white;
@@ -68,7 +83,10 @@
             }
         }
     }
-    &_top, &_body, &_bottom{
+
+    &_top,
+    &_body,
+    &_bottom {
         border: 2px solid black;
         border-radius: 10px;
         padding: 20px;
@@ -76,77 +94,94 @@
         display: flex;
         flex-direction: column;
     }
-    &_bottom{
+
+    &_bottom {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
     }
-    &_time{
+
+    &_time {
         padding: 20px;
         height: 100%;
         display: flex;
         flex-direction: column;
         gap: 15px;
     }
-    &_buttons{
+
+    &_buttons {
         display: flex;
         flex-direction: column;
         gap: 20px;
         padding: 20px;
-        & button{
+
+        & button {
             padding: 10px;
             border-radius: 15px;
         }
-        & .changesButtons{
+
+        & .changesButtons {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
     }
-    &_completeTodo-btn{
+
+    &_completeTodo-btn {
         background-color: rgb(3, 255, 112);
     }
-    &_deleteTodo-btn{
+
+    &_deleteTodo-btn {
         background-color: rgb(255, 51, 0);
     }
-    &_editTodo-btn{
+
+    &_editTodo-btn {
         background-color: rgb(0, 170, 255);
     }
-    &_addNewSteps{
+
+    &_addNewSteps {
         display: flex;
         align-items: center;
         gap: 15px;
-        & .addNewSteps{
-            &_input{
+
+        & .addNewSteps {
+            &_input {
                 border-radius: 15px;
                 padding: 10px;
                 color: black;
                 text-align: center;
             }
-            &_button{
+
+            &_button {
                 background: rgb(3, 255, 112);
                 border-radius: 15px;
                 padding: 10px;
             }
         }
     }
-    &_editTitleInput, &_editContentInput{
+
+    &_editTitleInput,
+    &_editContentInput {
         padding: 10px;
         color: black;
         text-align: start;
     }
-    &_saveChangesButton, &_cancelChangesButton{
+
+    &_saveChangesButton,
+    &_cancelChangesButton {
         text-align: center;
         transition: 0.3s;
         background: none;
     }
-    &_saveChangesButton:hover{
+
+    &_saveChangesButton:hover {
         background-color: rgb(3, 255, 112);
         color: white;
         transform: scale(110%);
     }
-    &_cancelChangesButton:hover{
+
+    &_cancelChangesButton:hover {
         background-color: rgb(255, 51, 0);
         color: white;
         transform: scale(110%);

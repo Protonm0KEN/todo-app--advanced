@@ -1,26 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todoGroupI } from "../../../types/todoGroupTypes/todoGroupTypes";
 
-const initialState: todoGroupI[] = [
-    {
-        todoGroupName: "Group 1",
-        todoGroupId: Math.random().toString(16).slice(2),
-        todoGroupIsShown: false,
-        todoGroupTodos: []
-    },
-    {
-        todoGroupName: "Group 2",
-        todoGroupId: Math.random().toString(16).slice(2),
-        todoGroupIsShown: false,
-        todoGroupTodos: []
-    },
-    {
-        todoGroupName: "Group 3",
-        todoGroupId: Math.random().toString(16).slice(2),
-        todoGroupIsShown: false,
-        todoGroupTodos: []
-    },
-]
+const initialState: todoGroupI[] = []
 
 
 

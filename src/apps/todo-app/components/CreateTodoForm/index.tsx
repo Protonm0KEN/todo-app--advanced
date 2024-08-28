@@ -16,7 +16,7 @@ const CreateTodoForm = ({ isCreateTodoFormOpen, setIsCreateTodoFormOpen }) => {
     const [timeOfFinishing, setTimeOfFinishing] = useState("")
     const [steps, setSteps] = useState<todoStepI[]>([])
     const [stepName, setStepName] = useState("")
-    const [todoGroupName, setTodoGroupName] = useState(todoGroups[0].todoGroupName)
+    const [todoGroupName, setTodoGroupName] = useState(todoGroups.length > 0 ? todoGroups[0].todoGroupName : "" )
     //date
     const clearCreateTodoForm = () => {
         setTitle("")

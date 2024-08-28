@@ -7,16 +7,18 @@
         width: 100%;
         & .nav_link {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 20px;
             border: 2px solid black;
             text-decoration: none;
             color: black;
             background: white;
-            padding: 10px;
             transition: 0.3s;
             width: 100%;
+            & a{
+                color: black;
+                width: 100%;
+                text-align: center;
+            }
             &:hover {
                 background-color: black;
                 color: white;
@@ -37,16 +39,15 @@
         }
     }
     &_deleteTodoGroupBtn{
-        padding: 10px;
+        width: 150px;
+        height: 100%;
         border: 2px solid black;
         background: white;
-        border-radius: 25%;
         transition: 0.3s;
         color: black;
         &:hover{
             background: red;
             color: white;
-            transform: scale(120%);
         }
     }
 }
