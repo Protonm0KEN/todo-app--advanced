@@ -1,0 +1,21 @@
+.TodoLinksBar {
+    width: 100%;
+
+    &_links {
+        display: flex;
+
+        & a {
+            width: 100%;
+            padding: 10px 0 10px 0;
+            border: 2px solid black;
+            color: black;
+            text-align: center;
+            transition: 0.3s;
+            background-color: white;
+            &:hover{
+                color: white;
+                background-color: black;
+            }
+        }
+    }
+}

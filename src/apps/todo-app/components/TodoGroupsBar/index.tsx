@@ -45,11 +45,11 @@ const TodoGroupsBar = () => {
     return (
         <div className='TodoGroupsBar'>
             <nav className='TodoGroupsBar_nav'>
-                <Link className="nav_link" to={""}>All Todos</Link>
+                <Link className="nav_link" to={"/todo-app/"}>All Todos</Link>
                 {todoGroups.map((todoGroup) => {
                     return (
                         <div className="nav_link" key={todoGroup.todoGroupId} >
-                            <Link onClick={() => onClickShowTodoGroup(todoGroup)} key={todoGroup.todoGroupId} to={todoGroup.todoGroupName}>
+                            <Link onClick={() => onClickShowTodoGroup(todoGroup)} key={todoGroup.todoGroupId} to={`/todo-app/${todoGroup.todoGroupName}`}>
                                 {todoGroup.todoGroupName}
                             </Link>
                             <button className="TodoGroupsBar_deleteTodoGroupBtn" onClick={() => onClickDeleteTodoGroup(todoGroup)}>X</button>

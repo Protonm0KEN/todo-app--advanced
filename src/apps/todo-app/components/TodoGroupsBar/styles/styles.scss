@@ -5,6 +5,7 @@
     &_nav {
         display: flex;
         width: 100%;
+
         & .nav_link {
             display: flex;
             align-items: center;
@@ -14,38 +15,49 @@
             background: white;
             transition: 0.3s;
             width: 100%;
-            & a{
+
+            & a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
                 color: black;
                 width: 100%;
                 text-align: center;
-            }
-            &:hover {
-                background-color: black;
-                color: white;
+
+                &:hover {
+                    background-color: black;
+                    color: white;
+                }
             }
         }
     }
-    &_form{
+
+    &_form {
         display: flex;
     }
-    &_createNewTodoGroupButton{
+
+    &_createNewTodoGroupButton {
         border: 2px solid black;
         padding: 10px;
         color: black;
         background: white;
+
         &:hover {
             background-color: black;
             color: white;
         }
     }
-    &_deleteTodoGroupBtn{
+
+    &_deleteTodoGroupBtn {
         width: 150px;
         height: 100%;
         border: 2px solid black;
         background: white;
         transition: 0.3s;
         color: black;
-        &:hover{
+
+        &:hover {
             background: red;
             color: white;
         }

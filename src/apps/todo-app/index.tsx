@@ -6,6 +6,7 @@ import { RootState } from "../../redux/store"
 import CreateTodoForm from "./components/CreateTodoForm"
 import TodoGroupsBar from "./components/TodoGroupsBar"
 import Todos from "./components/Todos"
+import TodoLinksBar from "./components/TodoLinksBar"
 const TodoApp = () => {
   const [isCreateTodoFormOpen, setIsCreateTodoFormOpen] = useState(false)
   const todos = useSelector((state: RootState) => state.todoAppReducers.todos)
@@ -13,21 +14,34 @@ const TodoApp = () => {
   return (
     <>
       <div className="TodoApp">
-        <TodoGroupsBar />
-        <button className="TodoApp_createTodoBtn" onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)}>
-          <Link to={isCreateTodoFormOpen ? "" : "create-todo-form"}>Создать новую задачу + </Link>
-        </button>
+        <TodoLinksBar />
         <div className="TodoApp_body">
           <Routes>
             {todoGroups.map((todoGroup) => {
               if (todoGroup.todoGroupIsShown === true) {
-                return <Route key={todoGroup.todoGroupId} path={todoGroup.todoGroupName} element={<Todos todos={todoGroup.todoGroupTodos} />} />
+                return <Route key={todoGroup.todoGroupId} path={todoGroup.todoGroupName} element={
+                  <>
+                    <TodoGroupsBar />
+                    <button className="TodoApp_createTodoBtn" onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)}>
+                      <Link to={isCreateTodoFormOpen ? "" : "create-todo-form"}>Создать новую задачу + </Link>
+                    </button>
+                    <div className="body_todos">
+                      <Todos todos={todoGroup.todoGroupTodos} />
+                    </div>
+                  </>
+                } />
               }
             })}
             <Route path={""} element=
               {
                 <>
-                  <Todos todos={todos} />
+                  <TodoGroupsBar />
+                  <button className="TodoApp_createTodoBtn" onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)}>
+                    <Link to={isCreateTodoFormOpen ? "" : "/todo-app/create-todo-form"}>Создать новую задачу + </Link>
+                  </button>
+                  <div className="body_todos">
+                    <Todos todos={todos} />
+                  </div>
                 </>
 
               } />
