@@ -1,0 +1,66 @@
+.TodoGroupsChart {
+    width: 45%;
+    border: 2px solid black;
+    padding: 40px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &_chart {
+        padding: 20px;
+        border-radius: 15px;
+        border: 2px solid black;
+    }
+
+    &_pieChart {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid black;
+        padding: 20px;
+        border-radius: 20px;
+        width: 100%;
+    }
+
+    &_doughnutChart {
+        display: none;
+        gap: 15px;
+
+        &.active {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    &_barChart {
+        display: none;
+
+        &.active {
+            display: flex;
+        }
+    }
+
+    &_selectType {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        & button {
+            background-color: white;
+            color: black;
+            transition: 0.3s;
+            padding: 20px;
+            width: 100%;
+            border: 2px solid black;
+            cursor: pointer;
+            font-size: 18px;
+
+            &:hover {
+                color: white;
+                background-color: black;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,17 @@
+.Statistics {
+    &_charts {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        & .charts {
+            width: 100%;
+            &_groupOfData {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+            }
+        }
+    }
+}
