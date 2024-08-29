@@ -1,9 +1,11 @@
 .TodosCharts {
-    width: 45%;
+    width: 100%;
     border: 2px solid black;
     padding: 40px;
     border-radius: 30px;
-
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     &_selectType {
         display: flex;
         width: 100%;

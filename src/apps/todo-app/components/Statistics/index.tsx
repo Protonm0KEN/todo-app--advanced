@@ -1,5 +1,6 @@
 import TodoGroupsCharts from "./Charts/TodoGroupsCharts"
 import TodosCharts from "./Charts/TodosCharts"
+import TodosMonthlyLineGraph from "./Charts/TodosMonthlyLineGraph"
 import "./styles/styles.scss"
 const Statistics = () => {
     // const todoGroups = useSelector((state: RootState) => state.todoAppReducers.todoGroups)
@@ -9,6 +10,9 @@ const Statistics = () => {
                 <div className="charts_groupOfData">
                     <TodosCharts />
                     <TodoGroupsCharts />
+                </div>
+                <div className="charts_groupOfData">
+                    <TodosMonthlyLineGraph />
                 </div>
             </div>
         </div>
