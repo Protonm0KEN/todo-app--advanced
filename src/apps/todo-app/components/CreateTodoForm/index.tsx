@@ -131,6 +131,7 @@ const CreateTodoForm = ({ isCreateTodoFormOpen, setIsCreateTodoFormOpen }) => {
                         </div> : null
                 }
                 <Link className="CreateTodoForm_createTodoButton" to="/todo-app/" onClick={onClickCreateNewTodo}>Create Todo</Link>
+                <Link to={"/todo-app/"} onClick={() => setIsCreateTodoFormOpen(!isCreateTodoFormOpen)} className="CreateTodoForm_closeButton">X</Link>
             </div>
         </form>
     )

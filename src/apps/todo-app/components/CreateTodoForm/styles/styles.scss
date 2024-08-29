@@ -10,7 +10,7 @@
     width: 100%;
     max-width: 600px;
     height: fit-content;
-
+    position: relative;
     &_layout {
         position: fixed;
         width: 100%;
@@ -97,6 +97,24 @@
                     transform: scale(110%);
                 }
             }
+        }
+    }
+    &_closeButton{
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 15px;
+        border: 2px solid black;
+        border-radius: 15px;
+        background-color: white;
+        color: black;
+        transition: 0.3s;
+        margin-top: 5px;
+        margin-right: 5px;
+        &:hover{
+            background-color: red;
+            color: white;
+            transform: scale(110%);
         }
     }
 }
