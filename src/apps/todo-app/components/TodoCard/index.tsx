@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux"
 import { deleteTodoFromTodos, updateTodoInTodos } from "../../redux/slices/todosSlice/todosSlice"
-import { todoI } from "../../types/todoTypes/todoTypes"
 import "./styles/styles.scss"
-import { FC, useState } from "react"
+import { useState } from "react"
 import { RootState } from "../../../../redux/store"
 import { updateTodoGroupInTodoGroups } from "../../redux/slices/todoGroupsSlice/todoGroupsSlice"
-const TodoCard: FC<todoI> = (todo) => {
+import { todoI } from "../../types/todoTypes/todoTypes"
+const TodoCard = (todo: todoI) => {
     const [newTitle, setNewTitle] = useState(todo.todoTitle)
     const [newContent, setNewContent] = useState(todo.todoContent)
     const [newStepName, setNewStepName] = useState("")

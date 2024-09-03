@@ -7,7 +7,6 @@ import CreateTodoForm from "./components/CreateTodoForm"
 import TodoGroupsBar from "./components/TodoGroupsBar"
 import Todos from "./components/Todos"
 import TodoLinksBar from "./components/TodoLinksBar"
-import Calendar from "./components/Calendar"
 import Statistics from "./components/Statistics"
 const TodoApp = () => {
   const [isCreateTodoFormOpen, setIsCreateTodoFormOpen] = useState(false)
@@ -47,7 +46,6 @@ const TodoApp = () => {
                 </>
 
               } />
-            <Route path={"calendar"} element={<Calendar />} />
             <Route path={"statistics"} element={<Statistics />} />
           </Routes>
         </div>
